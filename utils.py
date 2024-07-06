@@ -30,9 +30,9 @@ class temp(object):
     USERS_CANCEL = False
     GROUPS_CANCEL = False    
     CHAT = {}
-def formate_file_name(file_name):
-    file_name = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file_caption.split()))
-    return file_name
+def formate_file_caption(file_caption):
+    file_caption = ' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file_caption.split()))
+    return file_caption
 async def is_req_subscribed(bot, query):
     if await db.find_join_req(query.from_user.id):
         return True
