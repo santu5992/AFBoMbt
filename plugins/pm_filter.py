@@ -685,7 +685,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         clicker = int(query.data.split("#")[1])
         if clicker not in [query.from_user.id, 0]:
             return await query.answer(
-            f"Hey {query.from_user.first_name}, Jaldi Yeha Se Hato", show_alert=True
+            f"Hey {query.from_user.first_name}, It's Not Your Search", show_alert=True
             )
         newPoint = await db.get_point(clicker)
         
@@ -790,8 +790,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('🎭 ʏᴏᴜʀ ᴘᴏɪɴᴛs ✨', callback_data=f'point#{query.from_user.id}'),
             InlineKeyboardButton('🫠 ᴀʙᴏᴜᴛ 🚩', callback_data=f'about')
         ],
-        [
-            InlineKeyboardButton('🤞🏻 ᴇᴀʀɴ ᴍᴏɴᴇʏ ᴡɪᴛʜ ʙᴏᴛ 🤡', callback_data='earn')
         ]]    
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -804,9 +802,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('📸 ᴛ-ɢʀᴀᴘʜ', callback_data='telegraph'),
             InlineKeyboardButton('🆎️ ғᴏɴᴛ', callback_data='font')    
         ],
-        [
-          InlineKeyboardButton('🔐 ғsᴜʙ', callback_data='fsub'),
-          InlineKeyboardButton('🗣️ ᴀɪ ᴛᴛs', callback_data='tts')],[
+        [         
+          InlineKeyboardButton('🗣️ ᴀɪ ᴛᴛs', callback_data='tts'),
         InlineKeyboardButton('ᴀᴅᴍɪɴ ᴄᴍᴅ', callback_data='admincmd'),
 	    InlineKeyboardButton('⋞ ʜᴏᴍᴇ', callback_data='start')
         ]] 
@@ -1342,7 +1339,7 @@ async def auto_filter(client, msg, spoll=False , pm_mode = False):
                 InlineKeyboardButton("♻️ sᴇɴᴅ ᴀʟʟ", callback_data=batch_link),
             ])
             btn.insert(1,[
-                InlineKeyboardButton("No More Pages", user_id=ADMINS[0])
+                InlineKeyboardButton("No More Pages", callback_data="buttons"),
             ])
     else:
         btn.insert(0,[
@@ -1350,7 +1347,7 @@ async def auto_filter(client, msg, spoll=False , pm_mode = False):
             ])
 
         btn.insert(1,[
-            InlineKeyboardButton("No More Pages", user_id=ADMINS[0])
+            InlineKeyboardButton("No More Pages", callback_data="buttons"),
         ])
                              
     if spoll:
