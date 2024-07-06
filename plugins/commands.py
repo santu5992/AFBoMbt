@@ -212,7 +212,7 @@ async def start(client:Client, message):
             except (IndexError, ValueError):
                 print('IndexError: ', IndexError)
                 btn.append(
-                    [InlineKeyboardButton("♻️ ᴛʀʏ ᴀɢᴀɪɴ ♻️", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")]
+                    [InlineKeyboardButton("♻️ ᴛʀʏ ᴀɢᴀɪɴ ♻️", url=f'https://t.me/{temp.U_NAME}?start=file_{chat_id}_{file_id}")]
                 )
         await client.send_message(
             chat_id=message.from_user.id,
