@@ -106,7 +106,7 @@ User - {}"""
 ❗️ ʟᴀɴɢᴜᴀɢᴇ - {languages}</b>
 """
 
-    FILE_CAPTION = """<b>[TG:- @Chalochitra] {file_caption}</b>"""
+    FILE_CAPTION = """<a href=None><b>[TG:- @Chalochitra] {file_caption}</b></a>"""
 
     RESTART_TXT = """<b>
 📅 Dᴀᴛᴇ : <code>{}</code>
