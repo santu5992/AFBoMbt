@@ -901,7 +901,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             try:
                 for file in files:
                     file_ids = file.file_id
-                    file_name = file.file_caption
+                    file_name = file.file_name
                     result = await Media.collection.delete_one({
                         '_id': file_ids,
                     })
