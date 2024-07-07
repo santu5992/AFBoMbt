@@ -20,7 +20,7 @@ BOT_TOKEN = environ.get('BOT_TOKEN', '')
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '7056014024 778976952').split()]
 USERNAME = environ.get('USERNAME', "https://telegram.me/hii006")
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002156774985'))
-MOVIE_GROUP_LINK = environ.get('MOVIE_GROUP_LINK', 'https://t.me/ChalochitraSupportGroup')
+MOVIE_GROUP_LINK = environ.get('MOVIE_GROUP_LINK', 'https://t.me/+vdG1HFb4KDQ0YzY1')
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002151284979').split()]
 DATABASE_URI = environ.get('DATABASE_URI', "")
 
