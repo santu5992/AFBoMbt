@@ -117,15 +117,15 @@ User - {}"""
 
     OLD_ALRT_TXT = """ʏᴏᴜ ᴀʀᴇ ᴜsɪɴɢ ᴍʏ ᴏʟᴅ ᴍᴇssᴀɢᴇs..sᴇɴᴅ ᴀ ɴᴇᴡ ʀᴇǫᴜᴇsᴛ.."""
 
-    NO_RESULT_TXT = """<b>⚠️ᴛʜɪs Movie/Series ɪs ɴᴏᴛ ʀᴇʟᴇᴀsᴇᴅ ᴏʀ ᴀᴅᴅᴇᴅ ɪɴ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ🙄\n📍You Can Request This File To Send Me:- #request Movie/Series Name.\n♻️Exampe:- #request Srikanth\n\nWe Will Inform You If We Find The File You Requested</b>"""
+    NO_RESULT_TXT = """<b>⚠️ᴛʜɪs Movie/Series ɪs ɴᴏᴛ ʀᴇʟᴇᴀsᴇᴅ ᴏʀ ᴀᴅᴅᴇᴅ ɪɴ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ🙄\n\n📍You Can Request This File To Send Me:- #request Movie/Series Name.\n\n♻️Exampe:- #request Srikanth\n\nWe Will Inform You If We Find The File You Requested</b>"""
     
     I_CUDNT = """🤧 𝗛𝗲𝗹𝗹𝗼 {}
 
-𝗜 𝗰𝗼𝘂𝗹𝗱𝗻'𝘁 𝗳𝗶𝗻𝗱 𝗮𝗻𝘆 𝗺𝗼𝘃𝗶𝗲 𝗼𝗿 𝘀𝗲𝗿𝗶𝗲𝘀 𝗶𝗻 𝘁𝗵𝗮𝘁 𝗻𝗮𝗺𝗲.. 😐<b>\n📍You Can Request This File To Send Me:- #request Movie/Series Name.\n♻️Exampe:- #request Srikanth\n\nWe Will Inform You If We Find The File You Requested</b>"""
+𝗜 𝗰𝗼𝘂𝗹𝗱𝗻'𝘁 𝗳𝗶𝗻𝗱 𝗮𝗻𝘆 𝗺𝗼𝘃𝗶𝗲 𝗼𝗿 𝘀𝗲𝗿𝗶𝗲𝘀 𝗶𝗻 𝘁𝗵𝗮𝘁 𝗻𝗮𝗺𝗲.. 😐<b>\n\n📍You Can Request This File To Send Me:- #request Movie/Series Name.\n\n♻️Exampe:- #request Srikanth\n\nWe Will Inform You If We Find The File You Requested</b>"""
 
     I_CUD_NT = """😑 𝗛𝗲𝗹𝗹𝗼 {}
 
-𝗜 𝗰𝗼𝘂𝗹𝗱𝗻'𝘁 𝗳𝗶𝗻𝗱 𝗮𝗻𝘆𝘁𝗵𝗶𝗻𝗴 𝗿𝗲𝗹𝗮𝘁𝗲𝗱 𝘁𝗼 𝘁𝗵𝗮𝘁 😞... 𝗰𝗵𝗲𝗰𝗸 𝘆𝗼𝘂𝗿 𝘀𝗽𝗲𝗹𝗹𝗶𝗻𝗴.<b>\nOr 📍You Can Request This File To Send Me:- #request Movie/Series Name.\n♻️Exampe:- #request Srikanth\n\nWe Will Inform You If We Find The File You Requested</b>"""\
+𝗜 𝗰𝗼𝘂𝗹𝗱𝗻'𝘁 𝗳𝗶𝗻𝗱 𝗮𝗻𝘆𝘁𝗵𝗶𝗻𝗴 𝗿𝗲𝗹𝗮𝘁𝗲𝗱 𝘁𝗼 𝘁𝗵𝗮𝘁 😞... 𝗰𝗵𝗲𝗰𝗸 𝘆𝗼𝘂𝗿 𝘀𝗽𝗲𝗹𝗹𝗶𝗻𝗴.<b>\n\nOr 📍You Can Request This File To Send Me:- #request Movie/Series Name.\n\n♻️Exampe:- #request Srikanth\n\nWe Will Inform You If We Find The File You Requested</b>"""\
     
     CUDNT_FND = """🤧 𝗛𝗲𝗹𝗹𝗼 {}
 
