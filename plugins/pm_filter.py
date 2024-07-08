@@ -696,13 +696,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "premium":
         userid = query.from_user.id
         await query.message.edit(script.PREMIUM_TEXT , reply_markup=InlineKeyboardMarkup([
-        [InlineKeyboardButton('🤞🏻 ʟᴏᴡ ᴘʀɪᴄᴇ ᴘʟᴀɴs 🍿', callback_data='plans')],
+        [InlineKeyboardButton('👉 ʟᴏᴡ ᴘʀɪᴄᴇ ᴘʟᴀɴs 🍿', callback_data='plans')],
         [InlineKeyboardButton('⋞ ʜᴏᴍᴇ', callback_data='start')]
         ]))
     elif query.data == "plans":
         userid = query.from_user.id
         await query.message.edit(script.PLAN_TEXT  , reply_markup=InlineKeyboardMarkup([
-        [InlineKeyboardButton('🤞🏻 ʙᴜʏ ᴘʟᴀɴ 🍿', callback_data='buy_plan')],
+        [InlineKeyboardButton('👉 ʙᴜʏ ᴘʟᴀɴ 🍿', callback_data='buy_plan')],
         [InlineKeyboardButton('⋞ ʙᴀᴄᴋ', callback_data='premium')]
         ]))
     elif query.data == "buy_plan":
@@ -797,8 +797,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )      
     elif query.data == "features":
-        buttons = [[
-            InlineKeyboardButton('📸 ᴛ-ɢʀᴀᴘʜ', callback_data='telegraph'),
+        buttons = [[         
             InlineKeyboardButton('🆎️ ғᴏɴᴛ', callback_data='font')    
         ],
         [                
