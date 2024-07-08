@@ -88,17 +88,17 @@ def checkIfLinkIsValid(link):
 @Client.on_message(filters.command("m_grp") & filters.user(ADMINS))
 async def m_grp(client, message):
     links = []
-    link = await client.ask(message.chat.id ,"send me your pm search grp link or send /skiplink to skip , default is bisal_files")
+    link = await client.ask(message.chat.id ,"send me your pm search grp link or send /skiplink to skip , default link is Chalochitra Store")
     if link.text == "/skiplink":
-        links.append("https://t.me/bisal_files")
+        links.append("https://t.me/+vdG1HFb4KDQ0YzY1")
     else:
         if checkIfLinkIsValid(link.text):
             links.append(link.text)
         else:
             await message.reply("Invalid link")
-    link1 = await client.ask(message.chat.id ,"send me your movies grp link or send /skiplink to skip . default is bisal_files")
+    link1 = await client.ask(message.chat.id ,"send me your movies grp link or send /skiplink to skip . default is Chalochitra Store")
     if link1.text == "/skiplink":
-        links.append("https://t.me/bisal_files")
+        links.append("https://t.me/+vdG1HFb4KDQ0YzY1")
     else:
         if checkIfLinkIsValid(link1.text):
             links.append(link1.text)
