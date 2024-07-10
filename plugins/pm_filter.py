@@ -745,7 +745,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('🎗️ ɢᴇᴛ ʏᴏᴜʀ ғɪʟᴇ 🎗️', url=f'https://t.me/{temp.U_NAME}?start=file_{chat_id}_{file_id}')
         ]]
         reply_markup = InlineKeyboardMarkup(btn)
-        return await query.message.edit(text=f"<b>⚡ᴛʜᴀɴᴋs ғᴏʀ ᴊᴏɪɴɪɴɢ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ😊\n📍Now Just Click On '🎗️Get Your File🎗️' Button Below 👇</b>",reply_markup=reply_markup)
+        return await query.message.edit(text=f"<b>⚡ᴛʜᴀɴᴋs ғᴏʀ ᴊᴏɪɴɪɴɢ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ😊\n📍Now Just Click On '🎗️ Get Your File 🎗️' Button Below 👇</b>",reply_markup=reply_markup)
 
     elif query.data.startswith("stream"):
         user_id = query.from_user.id
