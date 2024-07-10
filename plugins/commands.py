@@ -210,7 +210,7 @@ async def start(client:Client, message):
                 )
         await client.send_message(
             chat_id=message.from_user.id,
-            text="<b>⚠️First Click On 'Join Channel' Button & Join\n\nThen Click On 'Try Again'👇 Button To Get Your File</b>",
+            text="<b>⚠️First Click On '🎗️ Join Now 🎗️' Button & Join,\n\n😊Then Click On '♻️ Try Again ♻️'👇 Button To Get Your File.</b>",
             reply_markup=InlineKeyboardMarkup(btn),
             parse_mode=enums.ParseMode.HTML
         )
