@@ -588,7 +588,7 @@ async def lang_search(client: Client, query: CallbackQuery):
     settings = await get_settings(query.message.chat.id)
     group_id = query.message.chat.id
     temp.CHAT[query.from_user.id] = query.message.chat.id
-    del_msg = f"<b>❗️❗️❗️WARNING!❗️❗️❗️\n\nᴛʜɪs ᴍᴇssᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇ ᴀꜰᴛᴇʀ <code>{get_readable_time(DELETE_TIME)}</code> ᴛᴏ ᴀᴠᴏɪᴅ ᴄᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs\n📌 Please forward this file to somewhere else and start downloading there</b>" if settings["auto_delete"] else ''
+    del_msg = f"\n\n<b>⚠️ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇ ᴀꜰᴛᴇʀ <code>{get_readable_time(DELETE_TIME)}</code> ᴛᴏ ᴀᴠᴏɪᴅ ᴄᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs</b>" if settings["auto_delete"] else ''
     links = ""
     if settings["link"]:
         btn = []
