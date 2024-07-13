@@ -676,7 +676,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         clicker = int(query.data.split("#")[1])
         if clicker not in [query.from_user.id, 0]:
             return await query.answer(
-            f"Hey {query.from_user.first_name}, Jaldi Yeha Se Hato", show_alert=True
+            f"Hey {query.from_user.first_name}, This Is Not Your Query", show_alert=True
             )
         return await query.message.edit(script.REF_LINK.format(temp.U_NAME , clicker , PREMIUM_POINT) , reply_markup=InlineKeyboardMarkup([
 	    [InlineKeyboardButton('⋞ ʜᴏᴍᴇ', callback_data='start')]
@@ -685,7 +685,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         clicker = int(query.data.split("#")[1])
         if clicker not in [query.from_user.id, 0]:
             return await query.answer(
-            f"Hey {query.from_user.first_name}, It's Not Your Search", show_alert=True
+            f"Hey {query.from_user.first_name}, This Is Not Your Query", show_alert=True
             )
         newPoint = await db.get_point(clicker)
         
@@ -990,7 +990,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             elif st.status == enums.ChatMemberStatus.MEMBER:
                 await query.answer(script.ALRT_TXT, show_alert=True)
         except pyrogram.errors.exceptions.bad_request_400.UserNotParticipant:
-            await query.answer("⚠️ ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀ ᴍᴇᴍʙᴇʀ ᴏꜰ ᴛʜɪꜱ ᴄʜᴀɴɴᴇʟ, ꜰɪʀꜱᴛ ᴊᴏɪɴ", show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("reject"):
         ident, user_id, msg_id = query.data.split("#")
@@ -1025,7 +1025,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ],[
             InlineKeyboardButton("‼️ ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ‼️", callback_data=f"not_available#{user_id}#{msg_id}")
         ],[
-            InlineKeyboardButton("🥵 ᴛᴇʟʟ ᴍᴇ ʏᴇᴀʀ/ʟᴀɴɢᴜᴀɢᴇ 🥵", callback_data=f"year#{user_id}#{msg_id}")
+            InlineKeyboardButton("🙄 ᴛᴇʟʟ ᴍᴇ ʏᴇᴀʀ/ʟᴀɴɢᴜᴀɢᴇ 🙄", callback_data=f"year#{user_id}#{msg_id}")
         ],[
             InlineKeyboardButton("🙃 ᴜᴘʟᴏᴀᴅᴇᴅ ɪɴ 1 ʜᴏᴜʀ 🙃", callback_data=f"upload_in#{user_id}#{msg_id}")
         ],[
@@ -1038,7 +1038,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             elif st.status == enums.ChatMemberStatus.MEMBER:
                 await query.answer(script.OLD_ALRT_TXT.format(query.from_user.first_name),show_alert=True)
         except pyrogram.errors.exceptions.bad_request_400.UserNotParticipant:
-            await query.answer("⚠️ ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀ ᴍᴇᴍʙᴇʀ ᴏꜰ ᴛʜɪꜱ ᴄʜᴀɴɴᴇʟ, ꜰɪʀꜱᴛ ᴊᴏɪɴ", show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("not_available"):
         ident, user_id, msg_id = query.data.split("#")
