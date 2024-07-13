@@ -114,7 +114,7 @@ User - {}"""
 🌐 Tɪᴍᴇᴢᴏɴᴇ : <code>Asia/Kolkata</code></b>"""
 
     ALRT_TXT = """This Is Not Your Query"""
-
+    ADMN_ALRT = """This Feature Is Only For Admins !"""
     OLD_ALRT_TXT = """ʏᴏᴜ ᴀʀᴇ ᴜsɪɴɢ ᴍʏ ᴏʟᴅ ᴍᴇssᴀɢᴇs..sᴇɴᴅ ᴀ ɴᴇᴡ ʀᴇǫᴜᴇsᴛ.."""
 
     NO_RESULT_TXT = """<b>⚠️ᴛʜɪs Movie/Series ɪs ɴᴏᴛ ʀᴇʟᴇᴀsᴇᴅ ᴏʀ ᴀᴅᴅᴇᴅ ɪɴ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ🙄\n\n📍You Can Request This File To Send Me:- #request Movie/Series Name, Season, Year, Language.\n\n♻️Exampe:- #request Srikanth 2024 Hindi\n\nWe Will Inform You If We Find The File You Requested</b>"""
