@@ -1062,7 +1062,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except UserIsBlocked:
                 await client.send_message(SUPPORT_GROUP, text=f"<b>💥 ʜᴇʟʟᴏ {user.mention},\n\nsᴏʀʀʏ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ 😢</b>", reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=int(msg_id))
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("uploaded"):
         ident, user_id, msg_id = query.data.split("#")
@@ -1086,7 +1086,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except UserIsBlocked:
                 await client.send_message(SUPPORT_GROUP, text=f"<b>💥 ʜᴇʟʟᴏ {user.mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴜᴘʟᴏᴀᴅᴇᴅ ☺️</b>", reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=int(msg_id))
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("already_available"):
         ident, user_id, msg_id = query.data.split("#")
@@ -1110,7 +1110,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except UserIsBlocked:
                 await client.send_message(SUPPORT_GROUP, text=f"<b>💥 ʜᴇʟʟᴏ {user.mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴀʟʀᴇᴀᴅʏ ᴀᴠᴀɪʟᴀʙʟᴇ 😋</b>", reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=int(msg_id))
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("upload_in"):
         ident, user_id, msg_id = query.data.split("#")
@@ -1134,7 +1134,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except UserIsBlocked:
                 await client.send_message(SUPPORT_GROUP, text=f"<b>💥 ʜᴇʟʟᴏ {user.mention},\n\nʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛ ᴡɪʟʟ ʙᴇ ᴜᴘʟᴏᴀᴅᴇᴅ ᴡɪᴛʜɪɴ 1 ʜᴏᴜʀ 😁</b>", reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=int(msg_id))
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("year"):
         ident, user_id, msg_id = query.data.split("#")
@@ -1158,7 +1158,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except UserIsBlocked:
                 await client.send_message(SUPPORT_GROUP, text=f"<b>💥 ʜᴇʟʟᴏ {user.mention},\n\nʙʀᴏ ᴘʟᴇᴀꜱᴇ ᴛᴇʟʟ ᴍᴇ ʏᴇᴀʀꜱ ᴀɴᴅ ʟᴀɴɢᴜᴀɢᴇ, ᴛʜᴇɴ ɪ ᴡɪʟʟ ᴜᴘʟᴏᴀᴅ 😬</b>", reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=int(msg_id))
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("rj_alert"):
         ident, user_id = query.data.split("#")
@@ -1166,7 +1166,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if str(userid) in user_id:
             await query.answer("sᴏʀʀʏ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ʀᴇᴊᴇᴄᴛ", show_alert=True)
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("na_alert"):
         ident, user_id = query.data.split("#")
@@ -1174,7 +1174,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if str(userid) in user_id:
             await query.answer("sᴏʀʀʏ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ", show_alert=True)
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("ul_alert"):
         ident, user_id = query.data.split("#")
@@ -1182,7 +1182,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if str(userid) in user_id:
             await query.answer("ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴜᴘʟᴏᴀᴅᴇᴅ", show_alert=True)
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("aa_alert"):
         ident, user_id = query.data.split("#")
@@ -1190,7 +1190,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if str(userid) in user_id:
             await query.answer("ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴀʟʀᴇᴀᴅʏ ᴀᴠᴀɪʟᴀʙʟᴇ", show_alert=True)
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("upload_alert"):
         ident, user_id = query.data.split("#")
@@ -1198,7 +1198,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if str(userid) in user_id:
             await query.answer("ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛ ᴡɪʟʟ ʙᴇ ᴜᴘʟᴏᴀᴅᴇᴅ ᴡɪᴛʜɪɴ 1 ʜᴏᴜʀ 😁", show_alert=True)
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("yrs_alert"):
         ident, user_id = query.data.split("#")
@@ -1206,7 +1206,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if str(userid) in user_id:
             await query.answer("ʙʀᴏ ᴘʟᴇᴀꜱᴇ ᴛᴇʟʟ ᴍᴇ ʏᴇᴀʀꜱ ᴀɴᴅ ʟᴀɴɢᴜᴀɢᴇ, ᴛʜᴇɴ ɪ ᴡɪʟʟ ᴜᴘʟᴏᴀᴅ 😬", show_alert=True)
         else:
-            await query.answer(script.ALRT_TXT, show_alert=True)
+            await query.answer("⚠️ This Feature Is Only For Admins !", show_alert=True)
 
     elif query.data.startswith("batchfiles"):
         ident, group_id, message_id, user = query.data.split("#")
