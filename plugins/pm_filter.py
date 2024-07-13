@@ -1014,7 +1014,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except UserIsBlocked:
                 await client.send_message(SUPPORT_GROUP, text=f"<b>💥 ʜᴇʟʟᴏ {user.mention},\n\nsᴏʀʀʏ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ʀᴇᴊᴇᴄᴛᴇᴅ 😶</b>", reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=int(msg_id))
         else:
-            await query.answer(script.ADMN_ALRT, show_alert=True)
+            await query.answer(script.ALRT_TXT, show_alert=True)
 
     elif query.data.startswith("accept"):
         ident, user_id, msg_id = query.data.split("#")
@@ -1062,7 +1062,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except UserIsBlocked:
                 await client.send_message(SUPPORT_GROUP, text=f"<b>💥 ʜᴇʟʟᴏ {user.mention},\n\nsᴏʀʀʏ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ 😢</b>", reply_markup=InlineKeyboardMarkup(btn), reply_to_message_id=int(msg_id))
         else:
-            await query.answer(script.ADMN_ALRT, show_alert=True)
+            await query.answer(script.ALRT_TXT, show_alert=True)
 
     elif query.data.startswith("uploaded"):
         ident, user_id, msg_id = query.data.split("#")
@@ -1204,7 +1204,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ident, user_id = query.data.split("#")
         userid = query.from_user.id
         if str(userid) in user_id:
-            await query.answer("ᴘʟᴇᴀꜱᴇ ᴛᴇʟʟ ᴍᴇ ʏᴇᴀʀꜱ ᴀɴᴅ ʟᴀɴɢᴜᴀɢᴇ, ᴛʜᴇɴ ɪ ᴡɪʟʟ ᴜᴘʟᴏᴀᴅ 😬", show_alert=True)
+            await query.answer("Please Tell Me Year & Language In This Format:- #request Movie/Series Name, Season, Year, Language\n\nᴛʜᴇɴ ɪ ᴡɪʟʟ ᴜᴘʟᴏᴀᴅ 😬", show_alert=True)
         else:
             await query.answer("script.ALRT_TXT", show_alert=True)
 
