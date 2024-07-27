@@ -106,7 +106,7 @@ async def check_plan(client, message):
         response = "User have not a premium..."
     await message.reply_text(response)
 
-@Client.on_message(filters.command('plan') & filters.incoming)
+@Client.on_message(filters.command("plan") & filters.incoming)
 async def plan(client, message):
     user_id = message.from_user.id
     if message.from_user.username:
