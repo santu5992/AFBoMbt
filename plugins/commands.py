@@ -418,7 +418,7 @@ async def settings(client, message):
     chat_type = message.chat.type
     if chat_type not in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         return await message.reply_text("<code>ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪɴ ɢʀᴏᴜᴘ.</code>")    
-    settings = await get_settings(grp_id)
+    settings = await get_settings
     title = message.chat.title
     if settings is not None:
             buttons = [[
