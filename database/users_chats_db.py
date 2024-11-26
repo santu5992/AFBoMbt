@@ -346,7 +346,7 @@ class Database:
         elif index == 2:
             post_mode["all_files_post_mode"] = not post_mode.get("all_files_post_mode", True)
         
-        await self.update_post_mode.update_one({}, {"$set": post_mode}, upsert=True)
+        await self.update_post_mode.update_one({}, {"$set": post_mode}, upsert=False)
         
         return post_mode
 db = Database()
