@@ -70,7 +70,7 @@ async def groups_list(bot, message):
     async for chat in chats:
         chat_info = await bot.get_chat(chat['id'])
         members_count = chat_info.members_count if chat_info.members_count else "Unknown"
-        out += f"<b>{count}.Title - `{chat['title']}`\nID - `{chat['id']}`\nMembers - `{members_count}`</b>"
+        out += f"<b>{count}. Title - `{chat['name']}`\nID - `{chat['id']}`\nMembers - `{members_count}`</b>"
         out += '\n\n'
         count += 1
     try:
