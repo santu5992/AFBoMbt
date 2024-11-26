@@ -494,7 +494,7 @@ async def send_msg(bot, message):
     else:
         await message.reply_text("<b>ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴀꜱ ᴀ ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇꜱꜱᴀɢᴇ, ꜰᴏʀ ᴇɢ - <code>/send userid1 userid2</code></b>")
 
-@Client.on_message(filters.regex('#request #Request')).split()
+@Client.on_message(filters.regex('#request #Request'))
 async def send_request(bot, message):
     try:
         request = message.text.split(" ", 1)[1]
