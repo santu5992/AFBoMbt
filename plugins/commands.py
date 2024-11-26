@@ -68,7 +68,7 @@ async def tts(client, message):
         except:pass
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client:Client, message): 
-    pm_mode = False
+    pm_mode = True
     try:
          data = message.command[1]
          if data.startswith('pm_mode_'):
