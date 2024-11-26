@@ -493,8 +493,8 @@ async def send_msg(bot, message):
             await message.reply_text(f"<b>‼️ ᴇʀʀᴏʀ - <code>{e}</code></b>")
     else:
         await message.reply_text("<b>ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴀꜱ ᴀ ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇꜱꜱᴀɢᴇ, ꜰᴏʀ ᴇɢ - <code>/send userid1 userid2</code></b>")
-
-@Client.on_message(filters.regex("#request"))
+        
+@Client.on_message(filters.regex("#Request"))
 async def send_request(bot, message):
     try:
         request = message.text.split(" ", 1)[1]
@@ -510,7 +510,7 @@ async def send_request(bot, message):
     ]]
     await message.reply_text("<b>✅ sᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ, ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ꜱᴏᴍᴇᴛɪᴍᴇ...</b>", reply_markup=InlineKeyboardMarkup(btn))
 
-@Client.on_message(filters.regex("#Request"))
+@Client.on_message(filters.regex("#request"))
 async def send_request(bot, message):
     try:
         request = message.text.split(" ", 1)[1]
