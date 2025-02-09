@@ -152,9 +152,9 @@ async def next_page(bot, query):
     links = ""
     if settings["link"]:      
         btn = []
-        for file_num, file in enumerate(files, start=offset+1):file.file_size)}] {file_name = file.file_name} ({file_num})</a></b>
-            file_name = file.file_name  # Keep filename unchanged
-links += f"""<b>\n\n♻️ <a href=https://t.me/{temp.U_NAME}?start=file_{query.message.chat.id}_{file.file_id}>[{get_size(file.file_size)}] {file_name} ({file_num})</a></b>"""
+        for file_num, file in enumerate(files, start=offset+1):
+    file_name = file.file_name  # Keep filename as stored
+    links += f"""<b>\n\n♻️ <a href=https://t.me/{temp.U_NAME}?start=file_{query.message.chat.id}_{file.file_id}>[{get_size(file.file_size)}] {file_name} ({file_num})</a></b>"""            
     else:
         btn = [[InlineKeyboardButton(text=f"📁 {get_size(file.file_size)}≽ {formate_file_name(file.file_name)}", url=f'https://telegram.dog/{temp.U_NAME}?start=file_{query.message.chat.id}_{file.file_id}'),]
                 for file in files
@@ -199,9 +199,9 @@ links += f"""<b>\n\n♻️ <a href=https://t.me/{temp.U_NAME}?start=file_{query.
         )
     if settings["link"]:
         links = ""
-        for file_num, file in enumerate(files, start=offset+1):
-            file_name = file.file_name  # Keep filename unchanged
-links += f"""<b>\n\n♻️ <a href=https://t.me/{temp.U_NAME}?start=file_{query.message.chat.id}_{file.file_id}>[{get_size(file.file_size)}] {file_name} ({file_num})</a></b>"""
+for file_num, file in enumerate(files, start=offset+1):
+    file_name = file.file_name  # Keep filename as stored
+    links += f"""<b>\n\n♻️ <a href=https://t.me/{temp.U_NAME}?start=file_{query.message.chat.id}_{file.file_id}>[{get_size(file.file_size)}] {file_name} ({file_num})</a></b>"""
         await query.message.edit_text(cap + links + del_msg, disable_web_page_preview=True, parse_mode=enums.ParseMode.HTML, reply_markup=InlineKeyboardMarkup(btn))
         return        
     try:
