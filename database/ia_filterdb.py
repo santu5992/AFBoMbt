@@ -59,21 +59,32 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
+import re
+
+def clean_query(text):
+    """Remove special characters like brackets for better search matching."""
+    return re.sub(r"[^\w\s]", "", text).strip().lower()
+
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
-    query = query.strip()
-    if not query:
+    original_query = query.strip()
+    cleaned_query = clean_query(original_query)  # Normalize search input
+
+    if not cleaned_query:
         raw_pattern = '.'
-    elif ' ' not in query:
-        raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
+    elif ' ' not in cleaned_query:
+        raw_pattern = r'(\b|[.\+\-_])' + cleaned_query + r'(\b|[.\+\-_])'
     else:
-        raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]') 
+        raw_pattern = cleaned_query.replace(' ', r'.*[\s.\+\-_]')  
+
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
     except:
-        regex = query
+        regex = cleaned_query
+
     filter = {'file_name': regex}
     cursor = Media.find(filter)
     cursor.sort('$natural', -1)
+
     if lang:
         lang_files = [file async for file in cursor if lang in file.file_name.lower()]
         files = lang_files[offset:][:max_results]
@@ -82,6 +93,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
         if next_offset >= total_results:
             next_offset = ''
         return files, next_offset, total_results
+
     cursor.skip(offset).limit(max_results)
     files = await cursor.to_list(length=max_results)
     total_results = await Media.count_documents(filter)
