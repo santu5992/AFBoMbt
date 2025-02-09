@@ -59,8 +59,6 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
-import re
-
 def normalize_text(text):
     """Remove only special characters that can break searches but keep important ones."""
     return re.sub(r"[^\w\s\+\-\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
