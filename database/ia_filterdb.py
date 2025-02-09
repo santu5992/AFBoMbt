@@ -64,10 +64,13 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     if not query:
         raw_pattern = '.*'
     else:
-        # Escape special characters properly for regex
-        special_chars = r"[](){}+*?&!%_='\".:,\\^-"
+        # Escape special characters properly except brackets
+        special_chars = r"{}+*?&!%_='\".:,\\^-"
         raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
         
+        # Make brackets optional in search (so both "Movie 2023" and "Movie (2023)" will work)
+        raw_pattern = raw_pattern.replace("(", r"?").replace(")", r"?").replace("[", r"?").replace("]", r"?")
+
         # Replace spaces with a flexible matching pattern
         raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
 
