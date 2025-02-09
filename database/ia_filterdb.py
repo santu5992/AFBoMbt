@@ -68,7 +68,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
         raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
 
         raw_pattern = raw_pattern.replace("(", r"?").replace(")", r"?").replace("[", r"?").replace("]", r"?")
-        raw_pattern = raw_pattern.replace(' ', r'.*\s\.\-*')
+        raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
 
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
@@ -86,9 +86,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
 
     next_offset = offset + max_results if offset + max_results < total_results else ''
 
-    # ✅ Debugging
     for file in files:
-        print(f"✅ DEBUG - Found File in DB: {file['file_name']}")  
 
     return files, next_offset, total_results  # ✅ Ensure this line is properly indented
     
