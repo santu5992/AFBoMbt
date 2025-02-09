@@ -60,17 +60,17 @@ async def save_file(media):
             return 'suc'
 
 def normalize_text(text):
-    """Normalize query to improve search matching without removing essential characters."""
-    return re.sub(r"[^\w\s\+\-\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
+    """Normalize query to improve search matching while keeping all special characters."""
+    return re.sub(r"[^\w\s\-\+\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     original_query = query.strip()
-    cleaned_query = normalize_text(original_query)  # Cleaning the search input
+    cleaned_query = normalize_text(original_query)  # Clean query input
 
     print(f"Original Query: {original_query}, Cleaned Query: {cleaned_query}")  # Debugging
 
     try:
-        # 🔹 New regex pattern to handle brackets and spaces properly
+        # 🔹 Ensures ALL special characters and spaces remain intact
         regex_pattern = ".*" + ".*".join([f"{re.escape(word)}.*" for word in cleaned_query.split()]) + ".*"
         regex = re.compile(regex_pattern, flags=re.IGNORECASE)
     except:
@@ -89,7 +89,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
 
     print(f"Total Results Found: {total_results}, Next Offset: {next_offset}")  # Debugging
 
-    # ✅ Print filenames to check if any characters are missing
+    # ✅ Print filenames to verify if any characters are missing
     for file in files:
         print(f"Found File: {file['file_name']}")  # Debugging
 
