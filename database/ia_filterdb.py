@@ -60,23 +60,23 @@ async def save_file(media):
             return 'suc'
 
 def normalize_text(text):
-    """Normalize search query for better matching but DO NOT remove any characters from filenames."""
+    """Normalize query to improve search matching without removing essential characters."""
     return re.sub(r"[^\w\s\+\-\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     original_query = query.strip()
-    cleaned_query = normalize_text(original_query)  # Clean query input for better matching
+    cleaned_query = normalize_text(original_query)  # Cleaning the search input
 
     print(f"Original Query: {original_query}, Cleaned Query: {cleaned_query}")  # Debugging
 
     try:
-        # 🔹 Adjust regex to match filenames better
-        regex_pattern = f".*{re.escape(cleaned_query)}.*"
+        # 🔹 New regex pattern to handle brackets and spaces properly
+        regex_pattern = ".*" + ".*".join([f"{re.escape(word)}.*" for word in cleaned_query.split()]) + ".*"
         regex = re.compile(regex_pattern, flags=re.IGNORECASE)
     except:
         regex = cleaned_query
 
-    # 🔹 Search in filenames without modifying them
+    # 🔹 Apply regex search in filenames without modifying stored data
     filter = {'file_name': {"$regex": regex}}  
     cursor = Media.find(filter)
     cursor.sort('$natural', -1)
@@ -89,7 +89,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
 
     print(f"Total Results Found: {total_results}, Next Offset: {next_offset}")  # Debugging
 
-    # ✅ Double-check that filenames stay EXACTLY as stored (No missing characters!)
+    # ✅ Print filenames to check if any characters are missing
     for file in files:
         print(f"Found File: {file['file_name']}")  # Debugging
 
