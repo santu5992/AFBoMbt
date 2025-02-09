@@ -59,22 +59,24 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
-def clean_text(text):
-    """Normalize text by removing special characters but keeping spaces."""
+def normalize_text(text):
+    """Remove brackets and special characters for better matching but keep spaces."""
     return re.sub(r"[^\w\s]", "", text).strip().lower()
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     original_query = query.strip()
-    cleaned_query = clean_text(original_query)  # Remove special characters
+    cleaned_query = normalize_text(original_query)  # Clean query input
 
     print(f"Original Query: {original_query}, Cleaned Query: {cleaned_query}")  # Debugging
 
     try:
-        regex = re.compile(cleaned_query, flags=re.IGNORECASE)
+        regex_pattern = ".*" + ".*".join(re.escape(word) for word in cleaned_query.split()) + ".*"
+        regex = re.compile(regex_pattern, flags=re.IGNORECASE)
     except:
         regex = cleaned_query
 
-    filter = {'file_name': {"$regex": regex}}  # Ensure MongoDB uses regex search
+    # Apply regex search on 'file_name' field
+    filter = {'file_name': {"$regex": regex}}  
     cursor = Media.find(filter)
     cursor.sort('$natural', -1)
 
