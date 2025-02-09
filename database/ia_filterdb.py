@@ -82,9 +82,14 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
 
     files = await cursor.to_list(length=max_results)
     total_results = await Media.count_documents(filter)
-    next_offset = offset + max_results if total_results > next_offset else ''
 
-    print(f"Total Results Found: {total_results}")  # Debugging
+    # ✅ Fix: Ensure next_offset is always defined
+    if total_results > offset + max_results:
+        next_offset = offset + max_results
+    else:
+        next_offset = ''
+
+    print(f"Total Results Found: {total_results}, Next Offset: {next_offset}")  # Debugging
 
     return files, next_offset, total_results
     
