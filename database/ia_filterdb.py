@@ -68,7 +68,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
         raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
 
         raw_pattern = raw_pattern.replace("(", r"?").replace(")", r"?").replace("[", r"?").replace("]", r"?")
-        raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
+        raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\-_]*')
 
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
