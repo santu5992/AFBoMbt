@@ -60,7 +60,7 @@ async def save_file(media):
             return 'suc'
 
 def normalize_text(text):
-    """Normalize search query for better matching, but DO NOT remove characters from filenames."""
+    """Clean only the search query but DO NOT change filenames in the database."""
     return re.sub(r"[^\w\s\+\-\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
@@ -70,12 +70,13 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     print(f"Original Query: {original_query}, Cleaned Query: {cleaned_query}")  # Debugging
 
     try:
+        # 🔹 Ensure search flexibility (brackets & special characters included)
         regex_pattern = ".*" + ".*".join(re.escape(word) for word in cleaned_query.split()) + ".*"
         regex = re.compile(regex_pattern, flags=re.IGNORECASE)
     except:
         regex = cleaned_query
 
-    # Apply regex search on 'file_name' field, but DO NOT modify the stored filenames
+    # 🔹 Search in filenames without modifying them
     filter = {'file_name': {"$regex": regex}}  
     cursor = Media.find(filter)
     cursor.sort('$natural', -1)
@@ -84,13 +85,11 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     total_results = await Media.count_documents(filter)
 
     # ✅ Ensure next_offset is always defined
-    if total_results > offset + max_results:
-        next_offset = offset + max_results
-    else:
-        next_offset = ''
+    next_offset = offset + max_results if total_results > offset + max_results else ''
 
     print(f"Total Results Found: {total_results}, Next Offset: {next_offset}")  # Debugging
 
+    # 🔹 Ensure filenames stay EXACTLY as stored (No missing characters!)
     return files, next_offset, total_results
     
 async def get_bad_files(query, file_type=None, offset=0, filter=False):
