@@ -64,21 +64,17 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     if not query:
         raw_pattern = '.*'
     else:
-        # Escape special characters properly except brackets
         special_chars = r"{}+*?&!%_='\".:,\\^-"
         raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
-        
-        # Make brackets optional in search (so both "Movie 2023" and "Movie (2023)" will work)
-        raw_pattern = raw_pattern.replace("(", r"?").replace(")", r"?").replace("[", r"?").replace("]", r"?")
 
-        # Replace spaces with a flexible matching pattern
+        raw_pattern = raw_pattern.replace("(", r"?").replace(")", r"?").replace("[", r"?").replace("]", r"?")
         raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
 
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
     except Exception as e:
-        print(f"❌ Regex Error: {e}")  # Debugging
-        regex = query  # Fallback to basic search
+        print(f"❌ Regex Error: {e}")  
+        regex = query  
 
     filter = {'file_name': regex}
     cursor = Media.find(filter)
@@ -89,9 +85,12 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     total_results = await Media.count_documents(filter)
 
     next_offset = offset + max_results if offset + max_results < total_results else ''
-for file in files:
-    print(f"✅ DEBUG - Found File in DB: {file['file_name']}")  # Check what the database retrieves
-    return files, next_offset, total_results
+
+    # ✅ Debugging
+    for file in files:
+        print(f"✅ DEBUG - Found File in DB: {file['file_name']}")  
+
+    return files, next_offset, total_results  # ✅ Ensure this line is properly indented
     
 async def get_bad_files(query, file_type=None, offset=0, filter=False):
     query = query.strip()
