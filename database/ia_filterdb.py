@@ -64,17 +64,20 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     if not query:
         raw_pattern = '.*'
     else:
-        # Preserve special characters and spaces correctly
         special_chars = r"\{\}\+\-\*\?&!%_='\".:,"
         raw_pattern = ''.join(
             f"[{char}]" if char in special_chars else char
             for char in query
         ).replace(' ', r'.*[\s\.\+\-_]*')
 
+    print(f"🔍 Search Query: {query}")  # Debugging
+    print(f"📝 Regex Pattern: {raw_pattern}")  # Debugging
+
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
-    except:
-        regex = query
+    except Exception as e:
+        print(f"❌ Regex Error: {e}")  # Debugging
+        regex = query  # Fallback to basic search
 
     filter = {'file_name': regex}
     cursor = Media.find(filter)
@@ -84,8 +87,13 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     files = await cursor.to_list(length=max_results)
     total_results = await Media.count_documents(filter)
 
-    next_offset = offset + max_results if next_offset < total_results else ''
+    print(f"📁 Total Results Found: {total_results}")  # Debugging
+
+    next_offset = offset + max_results if offset + max_results < total_results else ''
     
+    for file in files:
+        print(f"✅ Found File: {file['file_name']}")  # Debugging
+
     return files, next_offset, total_results
     
 async def get_bad_files(query, file_type=None, offset=0, filter=False):
