@@ -59,40 +59,33 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
-def normalize_text(text):
-    """Normalize search query for better matching while keeping all special characters."""
-    return re.sub(r"[^\w\s\-\+\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
-
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
-    original_query = query.strip()
-    cleaned_query = normalize_text(original_query)  # Clean query input
-
-    print(f"Original Query: {original_query}, Cleaned Query: {cleaned_query}")  # Debugging
+    query = query.strip()
+    if not query:
+        raw_pattern = '.*'
+    else:
+        # Preserve special characters and spaces correctly
+        special_chars = r"\{\}\+\-\*\?&!%_='\".:,"
+        raw_pattern = ''.join(
+            f"[{char}]" if char in special_chars else char
+            for char in query
+        ).replace(' ', r'.*[\s\.\+\-_]*')
 
     try:
-        # 🔹 Regex pattern to match filenames exactly without removing characters
-        regex_pattern = ".*" + ".*".join(re.escape(word) for word in cleaned_query.split()) + ".*"
-        regex = re.compile(regex_pattern, flags=re.IGNORECASE)
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
     except:
-        regex = cleaned_query
+        regex = query
 
-    # 🔹 Search without modifying stored filenames
-    filter = {'file_name': {"$regex": regex}}  
+    filter = {'file_name': regex}
     cursor = Media.find(filter)
     cursor.sort('$natural', -1)
 
+    cursor.skip(offset).limit(max_results)
     files = await cursor.to_list(length=max_results)
     total_results = await Media.count_documents(filter)
 
-    # ✅ Ensure next_offset is always defined
-    next_offset = offset + max_results if total_results > offset + max_results else ''
-
-    print(f"Total Results Found: {total_results}, Next Offset: {next_offset}")  # Debugging
-
-    # ✅ Print filenames for verification
-    for file in files:
-        print(f"Found File: {file['file_name']}")  # Debugging
-
+    next_offset = offset + max_results if next_offset < total_results else ''
+    
     return files, next_offset, total_results
     
 async def get_bad_files(query, file_type=None, offset=0, filter=False):
