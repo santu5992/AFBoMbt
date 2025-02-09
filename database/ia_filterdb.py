@@ -59,8 +59,6 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
-import re
-
 def clean_query(text):
     """Remove special characters like brackets for better search matching."""
     return re.sub(r"[^\w\s]", "", text).strip().lower()
