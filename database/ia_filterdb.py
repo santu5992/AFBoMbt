@@ -89,7 +89,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     total_results = await Media.count_documents(filter)
 
     next_offset = offset + max_results if offset + max_results < total_results else ''
-    for file in files:
+for file in files:
     print(f"✅ DEBUG - Found File in DB: {file['file_name']}")  # Check what the database retrieves
     return files, next_offset, total_results
     
