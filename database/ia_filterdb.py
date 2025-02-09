@@ -59,9 +59,11 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
+import re
+
 def normalize_text(text):
-    """Remove brackets and special characters for better matching but keep spaces."""
-    return re.sub(r"[^\w\s]", "", text).strip().lower()
+    """Remove only special characters that can break searches but keep important ones."""
+    return re.sub(r"[^\w\s\+\-\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     original_query = query.strip()
