@@ -60,12 +60,12 @@ async def save_file(media):
             return 'suc'
 
 def normalize_text(text):
-    """Remove only special characters that can break searches but keep important ones."""
+    """Normalize search query for better matching, but DO NOT remove characters from filenames."""
     return re.sub(r"[^\w\s\+\-\,\.\'\"\:\&\!\?\%\_\{\}\=]", "", text).strip().lower()
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     original_query = query.strip()
-    cleaned_query = normalize_text(original_query)  # Clean query input
+    cleaned_query = normalize_text(original_query)  # Clean query input for better matching
 
     print(f"Original Query: {original_query}, Cleaned Query: {cleaned_query}")  # Debugging
 
@@ -75,7 +75,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     except:
         regex = cleaned_query
 
-    # Apply regex search on 'file_name' field
+    # Apply regex search on 'file_name' field, but DO NOT modify the stored filenames
     filter = {'file_name': {"$regex": regex}}  
     cursor = Media.find(filter)
     cursor.sort('$natural', -1)
@@ -83,7 +83,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     files = await cursor.to_list(length=max_results)
     total_results = await Media.count_documents(filter)
 
-    # ✅ Fix: Ensure next_offset is always defined
+    # ✅ Ensure next_offset is always defined
     if total_results > offset + max_results:
         next_offset = offset + max_results
     else:
