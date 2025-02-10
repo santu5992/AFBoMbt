@@ -1270,13 +1270,13 @@ async def delSticker(sticker):
         await sticker.delete()
     except:
         pass
-async def auto_filter(client, msg, spoll=False , pm_mode = False):
+async def auto_filter(client, msg, spoll=False, pm_mode=False):
     st = ''
     try:
-        search_query = message.text  # Get the user's search query  
-st = await msg.reply_text(f"🔍 ***Searching for:*** `{search_query}...`", parse_mode="MarkdownV2")
-    except:
-        pass
+        search_query = msg.text.replace(".", r"\.")  # Escape dots to avoid MarkdownV2 issues
+        st = await msg.reply_text(f"🔍 ***Searching for:*** _{search_query}..._", parse_mode="MarkdownV2")
+    except Exception as e:
+        print(f"Error sending search message: {e}")  # Logs any error instead of hiding it
     if not spoll:
         message = msg
         search = message.text
