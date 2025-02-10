@@ -180,7 +180,7 @@ async def save_group_settings(group_id, key, value):
 
 def get_size(size):
     units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
-    size = float(size)
+    size = float(size) if size is not None else 0.0  # Default to 0 if None
     i = 0
     while size >= 1024.0 and i < len(units):
         i += 1
