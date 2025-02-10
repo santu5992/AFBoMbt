@@ -1272,12 +1272,12 @@ async def delSticker(sticker):
     except:
         pass	    
 async def auto_filter(client, msg, spoll=False, pm_mode=False):
-st = ''
-try:
-search_query = msg.text.replace("&", "&").replace("<", "<").replace(">", ">")
-st = await msg.reply_text(f"🔍 <b><i>Searching for:</i></b> <i>{search_query}...</i>", parse_mode=ParseMode.HTML)
-except Exception as e:
-print(f"Error sending search message: {e}")
+    st = ''
+    try:
+        search_query = msg.text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        st = await msg.reply_text(f"🔍 <b><i>Searching for:</i></b> <i>{search_query}...</i>", parse_mode=ParseMode.HTML)
+    except Exception as e:
+        print(f"Error sending search message: {e}")
     if not spoll:
         message = msg
         search = message.text
