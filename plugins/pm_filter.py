@@ -1279,7 +1279,7 @@ async def auto_filter(client, msg, spoll=False, pm_mode=False):
         escaped_query = re.sub(r"([_*()~`>#+\-=|{}.!])", r"\\\1", search_query)
 
         # Send the message with MarkdownV2 formatting
-        st = await msg.reply_text(f"🔍 ***Searching for:*** _{escaped_query}..._", parse_mode="MarkdownV2")
+        st = await msg.reply_text(f"🔍 ***Searching for:*** `{escaped_query}...`", parse_mode="MarkdownV2")
     except Exception as e:
         print(f"Error sending search message: {e}")  # Log error for debugging
     if not spoll:
