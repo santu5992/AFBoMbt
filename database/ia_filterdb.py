@@ -85,7 +85,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
         regex = query  # Fallback to basic search
 
     filter = {'file_name': regex}
-    cursor = Media.find(filter)
+    cursor = Media.find(filter, {"file_name": 1, "file_id": 1})  # Fetch only required fields
     cursor.sort('$natural', -1)
 
     cursor.skip(offset).limit(max_results)
@@ -112,14 +112,14 @@ async def get_bad_files(query, file_type=None, offset=0, filter=False):
     if file_type:
         filter['file_type'] = file_type
     total_results = await Media.count_documents(filter)
-    cursor = Media.find(filter)
+    cursor = Media.find(filter, {"file_name": 1, "file_id": 1})  # Fetch only required fields
     cursor.sort('$natural', -1)
     files = await cursor.to_list(length=total_results)
     return files, total_results
     
 async def get_file_details(query):
     filter = {'file_id': query}
-    cursor = Media.find(filter)
+    cursor = Media.find(filter, {"file_name": 1, "file_id": 1})  # Fetch only required fields
     filedetails = await cursor.to_list(length=1)
     return filedetails
 
