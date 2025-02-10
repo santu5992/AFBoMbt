@@ -4,6 +4,7 @@ import math
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 from Script import script
 import pyrogram
+from pyrogram.enums import ParseMode
 from info import SETTINGS, STICKERS_IDS,PREMIUM_POINT,MAX_BTN, BIN_CHANNEL, USERNAME, URL, ADMINS, LANGUAGES,QUALITIES,YEARS,SEASONS, AUTH_CHANNEL, SUPPORT_GROUP, IMDB, IMDB_TEMPLATE, LOG_VR_CHANNEL, TUTORIAL, FILE_CAPTION, SHORTENER_WEBSITE, SHORTENER_API, SHORTENER_WEBSITE2, SHORTENER_API2, DELETE_TIME
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto, ChatPermissions
 from pyrogram import Client, filters, enums
@@ -1273,14 +1274,10 @@ async def delSticker(sticker):
 async def auto_filter(client, msg, spoll=False, pm_mode=False):
     st = ''
     try:
-        search_query = msg.text
-
-        # Send the message with HTML formatting
-        st = await msg.reply_text(
-            f"🔍 <b><i>Searching for:</i></b> <i>{search_query}...</i>", parse_mode="html"
-        )
+        search_query = msg.text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        st = await msg.reply_text(f"🔍 <b><i>Searching for:</i></b> <i>{search_query}...</i>", parse_mode=ParseMode.HTML)
     except Exception as e:
-        print(f"Error sending search message: {e}")  # Log error for debugging
+        print(f"Error sending search message: {e}")
     if not spoll:
         message = msg
         search = message.text
