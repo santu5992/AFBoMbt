@@ -1275,8 +1275,10 @@ async def auto_filter(client, msg, spoll=False, pm_mode=False):
     try:
         search_query = msg.text
 
-        # Send the message with Markdown formatting
-        st = await msg.reply_text(f"🔍 ***Searching for:*** _{search_query}..._", parse_mode="Markdown")
+        # Send the message with HTML formatting
+        st = await msg.reply_text(
+            f"🔍 <b><i>Searching for:</i></b> <i>{search_query}...</i>", parse_mode="html"
+        )
     except Exception as e:
         print(f"Error sending search message: {e}")  # Log error for debugging
     if not spoll:
