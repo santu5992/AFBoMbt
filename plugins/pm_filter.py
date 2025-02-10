@@ -1270,34 +1270,19 @@ async def delSticker(sticker):
         await sticker.delete()
     except:
         pass
+	    
 async def auto_filter(client, msg, spoll=False, pm_mode=False):
     st = ''
     try:
         search_query = msg.text
-        escaped_query = search_query.translate(str.maketrans({
-            "_": r"\_",
-            "*": r"\*",
-            "[": r"",
-            "]": r"",
-            "(": r"",
-            ")": r"",
-            "~": r"\~",
-            "`": r"\`",
-            ">": r"\>",
-            "#": r"\#",
-            "+": r"\+",
-            "-": r"\-",
-            "=": r"\=",
-            "|": r"\|",
-            "{": r"\{",
-            "}": r"\}",
-            ".": r"\.",
-            "!": r"\!"
-        }))  # Escape MarkdownV2 special characters
 
+        # Escape MarkdownV2 special characters
+        escaped_query = re.sub(r"([_*()~`>#+\-=|{}.!])", r"\\\1", search_query)
+
+        # Send the message with MarkdownV2 formatting
         st = await msg.reply_text(f"🔍 ***Searching for:*** _{escaped_query}..._", parse_mode="MarkdownV2")
     except Exception as e:
-        print(f"Error sending search message: {e}")  # Logs error instead of hiding it
+        print(f"Error sending search message: {e}")  # Log error for debugging
     if not spoll:
         message = msg
         search = message.text
