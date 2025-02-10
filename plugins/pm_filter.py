@@ -1272,29 +1272,12 @@ async def delSticker(sticker):
     except:
         pass	    
 async def auto_filter(client, msg, spoll=False, pm_mode=False):
-    search_query = msg.text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    
-    # Initial message
-    st = await msg.reply_text(f"🔍 <b><i>Searching for:</i></b> <i>{search_query}</i>.", parse_mode=ParseMode.HTML)
-    
-    # Searching animation loop
-    dots = [".", "..", "..."]
-    i = 0
-    while True:
-        try:
-            await asyncio.sleep(0.5)  # Wait 0.5 seconds before updating
-            i = (i + 1) % 3  # Loop between ".", "..", "..."
-            await st.edit_text(f"🔍 <b><i>Searching for:</i></b> <i>{search_query}{dots[i]}</i>", parse_mode=ParseMode.HTML)
-        except:
-            break  # Break the loop if message editing fails
-
-        # STOP the animation once results are found
-        results = await get_search_results(search_query)
-        if results:
-            break  # Exit the animation loop
-
-    # Replace "Searching" with the actual results
-    await st.edit_text(f"✅ <b>Results for:</b> <i>{search_query}</i>\n\n{format_results(results)}", parse_mode=ParseMode.HTML)
+st = ''
+try:
+search_query = msg.text.replace("&", "&").replace("<", "<").replace(">", ">")
+st = await msg.reply_text(f"🔍 <b><i>Searching for:</i></b> <i>{search_query}...</i>", parse_mode=ParseMode.HTML)
+except Exception as e:
+print(f"Error sending search message: {e}")
     if not spoll:
         message = msg
         search = message.text
