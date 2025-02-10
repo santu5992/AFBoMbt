@@ -11,10 +11,6 @@ from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, MAX_BTN
 
 client = AsyncIOMotorClient(DATABASE_URI)
 mydb = client[DATABASE_NAME]
-
-# Ensure indexing for faster searches
-mydb[COLLECTION_NAME].create_index([("file_name", "text")])
-
 instance = Instance.from_db(mydb)
 
 @instance.register
@@ -85,7 +81,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
         regex = query  # Fallback to basic search
 
     filter = {'file_name': regex}
-    cursor = Media.find(filter, {"file_name": 1, "file_id": 1, "file_size": 1})  # Also fetch file_size
+    cursor = Media.find(filter)
     cursor.sort('$natural', -1)
 
     cursor.skip(offset).limit(max_results)
@@ -112,14 +108,14 @@ async def get_bad_files(query, file_type=None, offset=0, filter=False):
     if file_type:
         filter['file_type'] = file_type
     total_results = await Media.count_documents(filter)
-    cursor = Media.find(filter, {"file_name": 1, "file_id": 1, "file_size": 1})  # Also fetch file_size
+    cursor = Media.find(filter)
     cursor.sort('$natural', -1)
     files = await cursor.to_list(length=total_results)
     return files, total_results
     
 async def get_file_details(query):
     filter = {'file_id': query}
-    cursor = Media.find(filter, {"file_name": 1, "file_id": 1, "file_size": 1})  # Also fetch file_size
+    cursor = Media.find(filter)
     filedetails = await cursor.to_list(length=1)
     return filedetails
 
