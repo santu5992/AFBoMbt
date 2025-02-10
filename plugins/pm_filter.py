@@ -1269,8 +1269,7 @@ async def delSticker(sticker):
     try:
         await sticker.delete()
     except:
-        pass
-	    
+        pass	    
 async def auto_filter(client, msg, spoll=False, pm_mode=False):
     st = ''
     try:
