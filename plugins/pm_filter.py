@@ -1273,7 +1273,8 @@ async def delSticker(sticker):
 async def auto_filter(client, msg, spoll=False , pm_mode = False):
     st = ''
     try:
-        st = await msg.reply_sticker(sticker=random.choice(STICKERS_IDS))
+        search_query = message.text  # Get the user's search query  
+st = await msg.reply_text(f"🔍 ***Searching for:*** `{search_query}...`", parse_mode="MarkdownV2")
     except:
         pass
     if not spoll:
