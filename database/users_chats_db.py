@@ -33,7 +33,7 @@ class Database:
         )
 
     async def get_settings(self, id):
-        chat = await self.grp.find_one({'id':int(id)})
+        chat = await self.grp.find_one({'id': int(id)}, {'id': 1, 'name': 1})  # Fetch only necessary fields
         if chat:
             return chat.get('settings', self.default)
         else:
@@ -41,7 +41,7 @@ class Database:
         return self.default
 
     async def find_join_req(self, id):
-        return bool(await self.req.find_one({'id': id}))
+        return bool(await self.req.find_one({'id': id}, {'id': 1}))  # Fetch only ID
         
     async def add_join_req(self, id):
         await self.req.insert_one({'id': id})
@@ -65,10 +65,10 @@ class Database:
         
     async def update_point(self ,id):
         await self.col.update_one({'id' : id} , {'$inc':{'point' : 100}})
-        point = (await self.col.find_one({'id' : id}))['point']
+        point = (await self.col.find_one({'id': id}, {'point': 1}))['point']  # Fetch only 'point'
         if point >= PREMIUM_POINT :
             seconds = (REF_PREMIUM * 24 * 60 * 60)
-            oldEx =(await self.users.find_one({'id' : id}))
+            oldEx = await self.users.find_one({'id': id}, {'id': 1, 'expiry': 1})  # Fetch only ID and expiry
             if oldEx :
                 expiry_time = oldEx['expiry_time'] + datetime.timedelta(seconds=seconds)
             else: 
@@ -77,11 +77,11 @@ class Database:
             await db.update_user(user_data)
             await self.col.update_one({'id' : id} , {'$set':{'point' : 0}})
     async def get_point(self , id):
-        newPoint = await self.col.find_one({'id' : id})
+        newPoint = await self.col.find_one({'id': id}, {'point': 1})  # Fetch only 'point'
         return newPoint['point'] if newPoint else None
         
     async def is_user_exist(self, id):
-        user = await self.col.find_one({'id':int(id)})
+        user = await self.col.find_one({'id': int(id)}, {'id': 1, 'username': 1})  # Fetch only ID and username
         return bool(user)
     
     async def total_users_count(self):
