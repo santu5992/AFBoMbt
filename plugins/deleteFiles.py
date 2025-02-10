@@ -14,7 +14,7 @@ async def deletemultiplemedia(bot, message):
     if media.mime_type in ['video/mp4', 'video/x-matroska']: 
         file_id, _ = unpack_new_file_id(media.file_id)
         try:
-            result = await Media.find_one({"file_id": file_id}, {"file_name": 1, "file_id": 1})
+            result = await Media.find_one({"file_id": file_id}, {"file_name": 1, "file_id": 1, "file_size": 1})
             if result:
                 await result.delete()
                 logger.info(f"File {media.file_name} with ID {file_id} deleted from database")
