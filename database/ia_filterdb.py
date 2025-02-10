@@ -11,11 +11,11 @@ from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, MAX_BTN
 
 client = AsyncIOMotorClient(DATABASE_URI)
 mydb = client[DATABASE_NAME]
-instance = Instance.from_db(mydb)
 
-# Ensure the index exists, but only create it if missing
-await mydb[COLLECTION_NAME].create_index(
-    [("file_name", "text")], name="file_name_index", background=True)
+# Ensure indexing for faster searches
+mydb[COLLECTION_NAME].create_index([("file_name", "text")])
+
+instance = Instance.from_db(mydb)
 
 @instance.register
 class Media(Document):
