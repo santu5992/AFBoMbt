@@ -1286,9 +1286,9 @@ async def auto_filter(client, msg, spoll=False, pm_mode=False):
             i = (i + 1) % 3  # Loop between ".", "..", "..."
             await st.edit_text(f"🔍 <b><i>Searching for:</i></b> <i>{search_query}{dots[i]}</i>", parse_mode=ParseMode.HTML)
         except:
-            break  # Break the loop if message editing fails (e.g., message deleted)
+            break  # Break the loop if message editing fails
 
-        # 🛑 STOP the animation once results are found
+        # STOP the animation once results are found
         results = await get_search_results(search_query)
         if results:
             break  # Exit the animation loop
