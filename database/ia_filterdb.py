@@ -13,6 +13,10 @@ client = AsyncIOMotorClient(DATABASE_URI)
 mydb = client[DATABASE_NAME]
 instance = Instance.from_db(mydb)
 
+# Ensure the index exists, but only create it if missing
+await mydb[COLLECTION_NAME].create_index(
+    [("file_name", "text")], name="file_name_index", background=True)
+
 @instance.register
 class Media(Document):
     file_id = fields.StrField(attribute='_id')
