@@ -60,8 +60,8 @@ async def send_movie_updates(bot, file_name, file_id , post_mode):
     reply_markup = InlineKeyboardMarkup(btn)
     movie_update_channel =await db.movies_update_channel_id()
     try:
-    if MOVIE_UPDATE_CHANNEL:
-        await bot.send_photo(MOVIE_UPDATE_CHANNEL, photo=poster_url, caption=caption, reply_markup=reply_markup)
+        if MOVIE_UPDATE_CHANNEL:
+            await bot.send_photo(MOVIE_UPDATE_CHANNEL, photo=poster_url, caption=caption, reply_markup=reply_markup)
     except Exception as e:
         print('Error in send_movie_updates', e)
         pass
