@@ -61,23 +61,24 @@ async def save_file(media):
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     query = query.strip()
-
+    
     if not query:
-        raw_pattern = '.*'  # Match everything if the query is empty
+        raw_pattern = '.*'  # Return all results if no query is provided
     else:
-        # Define special characters that need escaping
-        special_chars = r"{}+*?&!%_='\".:,\\^$|#@~`<>;/()-"
-
-        # Escape all special characters
+        # Escape all special characters properly
+        special_chars = r"{}+*?&!%_='\".:,\\^$|#@~-`<>;/"
         raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
 
-        # Make brackets and hyphen optional in search
-        raw_pattern = raw_pattern.replace(r"", r"(?:)?").replace(r"", r"(?:)?")
-        raw_pattern = raw_pattern.replace(r"", r"(?:)?").replace(r"", r"(?:)?")
-        raw_pattern = raw_pattern.replace(r"\-", r"(?:\\-)?")  # Optional hyphen
-
+        # Make brackets optional in search
+        raw_pattern = raw_pattern.replace("(", r"\(?").replace(")", r"\)?")
+        raw_pattern = raw_pattern.replace("[", r"\[?").replace("]", r"\]?")
+        raw_pattern = raw_pattern.replace("-", r"(\-?") # Optional hyphen
         # Replace spaces with a flexible matching pattern
         raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
+
+        # Make all special characters optional
+        for char in special_chars:
+            raw_pattern = raw_pattern.replace(f"\\{char}", f"\\{char}?")
 
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
