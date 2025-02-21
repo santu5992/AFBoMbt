@@ -59,38 +59,36 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
-async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
-    query = query.strip()
-    if not query:
-        raw_pattern = '.*'
-    else:
-        # Escape special characters properly except brackets
-        special_chars = r"{}+*?&!%_='\".:,\\^-"
-        raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
-        
-        # Make brackets optional in search (so both "Movie 2023" and "Movie (2023)" will work)
-        raw_pattern = raw_pattern.replace("(", r"?").replace(")", r"?").replace("[", r"?").replace("]", r"?")
+async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None): query = query.strip() if not query: raw_pattern = '.' else: # Escape all special characters properly special_chars = r"{}+?&!%_='".:,\^$|#@~`<>;/" raw_pattern = ''.join(f"\{char}" if char in special_chars else char for char in query)
 
-        # Replace spaces with a flexible matching pattern
-        raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
-
-    try:
-        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
-    except Exception as e:
-        print(f"❌ Regex Error: {e}")  # Debugging
-        regex = query  # Fallback to basic search
-
-    filter = {'file_name': regex}
-    cursor = Media.find(filter)
-    cursor.sort('$natural', -1)
-
-    cursor.skip(offset).limit(max_results)
-    files = await cursor.to_list(length=max_results)
-    total_results = await Media.count_documents(filter)
-
-    next_offset = offset + max_results if offset + max_results < total_results else ''
+# Make brackets optional in search
+    raw_pattern = raw_pattern.replace("(", r"\(?").replace(")", r"\)?")
+    raw_pattern = raw_pattern.replace("[", r"\[?").replace("]", r"\]?")
     
-    return files, next_offset, total_results  
+    # Replace spaces with a flexible matching pattern
+    raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
+    
+    # Make all special characters optional
+    for char in special_chars:
+        raw_pattern = raw_pattern.replace(f"\\{char}", f"\\{char}?")
+
+try:
+    regex = re.compile(raw_pattern, flags=re.IGNORECASE)
+except Exception as e:
+    print(f"❌ Regex Error: {e}")  # Debugging
+    regex = query  # Fallback to basic search
+
+filter = {'file_name': regex}
+cursor = Media.find(filter)
+cursor.sort('$natural', -1)
+
+cursor.skip(offset).limit(max_results)
+files = await cursor.to_list(length=max_results)
+total_results = await Media.count_documents(filter)
+
+next_offset = offset + max_results if offset + max_results < total_results else ''
+
+return files, next_offset, total_results
     
 async def get_bad_files(query, file_type=None, offset=0, filter=False):
     query = query.strip()
