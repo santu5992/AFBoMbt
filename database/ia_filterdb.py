@@ -61,24 +61,25 @@ async def save_file(media):
 
 async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
     query = query.strip()
-    
+
     if not query:
-        raw_pattern = '.*'  # Return all results if no query is provided
+        raw_pattern = '.*'  # Match everything if the query is empty
     else:
-        # Escape all special characters properly
-        special_chars = r"{}+*?&!%_=-'\".:,\\^$|#@~`<>;/"
+        # Define special characters that need escaping
+        special_chars = r"{}+*?&!%_='\".:,\\^$|#@~`<>;/-"
+
+        # Escape special characters correctly
         raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
 
-        # Make brackets optional in search
+        # Make brackets optional
         raw_pattern = raw_pattern.replace("(", r"\(?").replace(")", r"\)?")
         raw_pattern = raw_pattern.replace("[", r"\[?").replace("]", r"\]?")
 
-        # Replace spaces with a flexible matching pattern
-        raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
+        # Make hyphen optional (so "Crime Beat 2025" still matches "Crime-Beat 2025")
+        raw_pattern = raw_pattern.replace(r"\-", r"(?:\\-)?")
 
-        # Make all special characters optional
-        for char in special_chars:
-            raw_pattern = raw_pattern.replace(f"\\{char}", f"\\{char}?")
+        # Allow flexible space and punctuation matching
+        raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
 
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
