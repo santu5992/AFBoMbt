@@ -66,19 +66,17 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
         raw_pattern = '.*'  # Match everything if the query is empty
     else:
         # Define special characters that need escaping
-        special_chars = r"{}+*?&!%_='\".:,\\^$|#@~`<>;/-"
+        special_chars = r"{}+*?&!%_='\".:,\\^$|#@~`<>;/()-"
 
-        # Escape special characters correctly
+        # Escape all special characters
         raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
 
-        # Make brackets optional
+        # Make brackets and hyphen optional in search
         raw_pattern = raw_pattern.replace("(", r"\(?").replace(")", r"\)?")
         raw_pattern = raw_pattern.replace("[", r"\[?").replace("]", r"\]?")
+        raw_pattern = raw_pattern.replace(r"\-", r"(?:\\-)?")  # Optional hyphen
 
-        # Make hyphen optional (so "Crime Beat 2025" still matches "Crime-Beat 2025")
-        raw_pattern = raw_pattern.replace(r"\-", r"(?:\\-)?")
-
-        # Allow flexible space and punctuation matching
+        # Replace spaces with a flexible matching pattern
         raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
 
     try:
