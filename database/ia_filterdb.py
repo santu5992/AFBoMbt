@@ -59,36 +59,44 @@ async def save_file(media):
             print(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
             return 'suc'
 
-async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None): query = query.strip() if not query: raw_pattern = '.' else: # Escape all special characters properly special_chars = r"{}+?&!%_='".:,\^$|#@~`<>;/" raw_pattern = ''.join(f"\{char}" if char in special_chars else char for char in query)
-
-# Make brackets optional in search
-    raw_pattern = raw_pattern.replace("(", r"\(?").replace(")", r"\)?")
-    raw_pattern = raw_pattern.replace("[", r"\[?").replace("]", r"\]?")
+async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
+    query = query.strip()
     
-    # Replace spaces with a flexible matching pattern
-    raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
-    
-    # Make all special characters optional
-    for char in special_chars:
-        raw_pattern = raw_pattern.replace(f"\\{char}", f"\\{char}?")
+    if not query:
+        raw_pattern = '.*'  # Return all results if no query is provided
+    else:
+        # Escape all special characters properly
+        special_chars = r"{}+*?&!%_='\".:,\\^$|#@~`<>;/"
+        raw_pattern = ''.join(f"\\{char}" if char in special_chars else char for char in query)
 
-try:
-    regex = re.compile(raw_pattern, flags=re.IGNORECASE)
-except Exception as e:
-    print(f"❌ Regex Error: {e}")  # Debugging
-    regex = query  # Fallback to basic search
+        # Make brackets optional in search
+        raw_pattern = raw_pattern.replace("(", r"\(?").replace(")", r"\)?")
+        raw_pattern = raw_pattern.replace("[", r"\[?").replace("]", r"\]?")
 
-filter = {'file_name': regex}
-cursor = Media.find(filter)
-cursor.sort('$natural', -1)
+        # Replace spaces with a flexible matching pattern
+        raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
 
-cursor.skip(offset).limit(max_results)
-files = await cursor.to_list(length=max_results)
-total_results = await Media.count_documents(filter)
+        # Make all special characters optional
+        for char in special_chars:
+            raw_pattern = raw_pattern.replace(f"\\{char}", f"\\{char}?")
 
-next_offset = offset + max_results if offset + max_results < total_results else ''
+    try:
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
+    except re.error as e:
+        print(f"❌ Regex Error: {e}")  # Debugging
+        return [], '', 0  # Return empty results instead of breaking
 
-return files, next_offset, total_results
+    filter = {'file_name': regex}
+    cursor = Media.find(filter)
+    cursor.sort('$natural', -1)
+
+    cursor.skip(offset).limit(max_results)
+    files = await cursor.to_list(length=max_results)
+    total_results = await Media.count_documents(filter)
+
+    next_offset = offset + max_results if offset + max_results < total_results else ''
+
+    return files, next_offset, total_results
     
 async def get_bad_files(query, file_type=None, offset=0, filter=False):
     query = query.strip()
