@@ -72,7 +72,7 @@ async def get_search_results(query, max_results=MAX_BTN, offset=0, lang=None):
         # Make brackets optional in search
         raw_pattern = raw_pattern.replace("(", r"\(?").replace(")", r"\)?")
         raw_pattern = raw_pattern.replace("[", r"\[?").replace("]", r"\]?")
-        raw_pattern = raw_pattern.replace("-", r"\-?") # Optional hyphen
+        raw_pattern = raw_pattern.replace("-", r"\-?").replace("-", r"\-?") # Optional hyphen
         # Replace spaces with a flexible matching pattern
         raw_pattern = raw_pattern.replace(' ', r'.*[\s\.\+\-_]*')
 
